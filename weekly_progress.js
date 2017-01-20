@@ -4,23 +4,21 @@
 <svg></svg>
 */
 
-var times = [30,40,120,45,15,70,20];
-var days = ["Mon","Tues","Weds","Thurs","Frid","Sat","Sun"];
-var max_time = 120;
-var max_y = 20*Math.floor(max_time/20);
-var height = max_time*1.8 + 50;
+var times = [40,40,120,45,15,70,20];
+var days = ["Mon","Tues","Weds","Thurs","Fri","Sat","Sun"];
+var max_time = Math.max(...times);
+var max_y = 20*Math.floor(max_time/20) + 20;
+var height = max_time*1.8 + 100;
 var width = 475;
 var h_margin = 20;
 var w_margin = 50;
 var offset = 30;
-//var y_ticks = [];
-var y_ticks = [20,40,60,
-               80,100,
-               120];
+var y_ticks = [];
+
 // create y_ticks array
-//for (var i = 1; i <= max_y/50; i++){
-//  y_ticks.append(i*50);
-//}
+for (var i = 1; i <= max_y/20; i++){
+  y_ticks.push(i*20);
+}
 
 // line function for time graph
 var time_line = 
