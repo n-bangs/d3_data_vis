@@ -2,15 +2,20 @@
 var svg = d3.select('#progress_svg');
 var points = ["Wolf", "Horse","Frog", "Eagle", "Bear"];
 var p = [1]
-var progress = [[1,1], [2,1], [3,.6]];
+var progress = [[1,.5, .75], [2,1,.5], [3,.6,.8]];
 var pi = Math.PI;
+var comp_arc = d3.svg.arc()
+    .innerRadius(0)
+    .outerRadius(function(d,i) {1
 var arc = d3.svg.arc()
     .innerRadius(function(d,i) { 
-      if (d[1] === 1) {return 0;}
-      else { if (i === 0 || i == points.length-1) 
+      //if (d[1] === 1) {return 0}
+     // else
+    // { 
+    if (i === 0 || i == points.length-1) 
                 {return 14;}
              else {return 8;}
-           }
+      //     }
    })
   .outerRadius(function(d,i) { 
       if (d[1] === 1) 

@@ -23,7 +23,8 @@
 {% include "user_progress_bar.html" %}
   
 <script>
-  var times = [40,40,120,45,15,70,20];
+  var times = [40,40,120,45,0,0,0];
+  var submods = [2,3,10,2,0,0,0];
   var days = ["Mon","Tues","Weds","Thurs","Fri","Sat","Sun"];
   var max_time = Math.max(...times);
   var max_y = 20*Math.floor(max_time/20) + 20; 
@@ -38,6 +39,8 @@
   for (var i = 1; i <= max_y/20; i++){
     y_ticks.push(i*20);
   }
+
+
 
   // line function for time graph
   var time_line = 
@@ -64,6 +67,17 @@
                 .attr('width', width + w_margin)
                 .attr('height', height + h_margin);
 
+  svg.selectAll(".mod_bars")
+    .data(submods)
+      .enter().append("g")
+        .attr("transform", function(d,i) {
+            return 'translate(' + (i*60 + offset + 10 )  + ','+ (height - 20*d) + ')';
+        })
+      .append('rect')
+    .attr('class','mod_bars')
+    .attr('width', 40)
+    .attr('height', function(d) {return 20*d;})
+    .attr('fill', 'purple');
   // add time graph path
   svg.append("path")
         .attr("d", time_line(times))
@@ -78,6 +92,13 @@
         .attr("stroke","grey")
         .attr("stroke-width", "2");
 
+  svg.append("path")
+        .attr("d", base_line([[offset, height-20],
+                              [width,height-20]]))
+        .attr("stroke","green")
+        .attr("stroke-width", "2");
+
+
   // add time points for each day
   svg.selectAll("g")
       .data(times)
@@ -88,7 +109,10 @@
         })
        .append("circle")
         .attr("r", 5)
-        .attr("fill", "steelblue");
+        .attr("fill", function(d,i) {
+            if (d < 20) { return "red"; }
+            else { return "green" }});
+
 
   // add x-axis names
   svg.selectAll(".x_axis")
